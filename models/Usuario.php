@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 function criarUsuario($nome, $email, $senha) {
     global $conn;
     $hash = password_hash($senha, PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $nome, $email, $hash);
     return $stmt->execute();
 }
@@ -23,7 +23,7 @@ function criarUsuario($nome, $email, $senha) {
 // Buscar usuário pelo email
 function buscarUsuarioPorEmail($email) {
     global $conn;
-    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = ?");
+    $stmt = $conn->prepare("SELECT * FROM usuario WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -35,10 +35,10 @@ function atualizarUsuario($id, $nome, $email, $senha = null) {
     global $conn;
     if ($senha) {
         $hash = password_hash($senha, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ? WHERE id = ?");
         $stmt->bind_param("sssi", $nome, $email, $hash, $id);
     } else {
-        $stmt = $conn->prepare("UPDATE usuarios SET nome = ?, email = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ? WHERE id = ?");
         $stmt->bind_param("ssi", $nome, $email, $id);
     }
     return $stmt->execute();
@@ -47,7 +47,7 @@ function atualizarUsuario($id, $nome, $email, $senha = null) {
 // Deletar usuário
 function deletarUsuario($id) {
     global $conn;
-    $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM usuario WHERE id = ?");
     $stmt->bind_param("i", $id);
     return $stmt->execute();
 }
@@ -55,7 +55,7 @@ function deletarUsuario($id) {
 // Listar todos usuários
 function listarUsuarios() {
     global $conn;
-    $result = $conn->query("SELECT id, nome, email FROM usuarios"); // NÃO retornar senha aqui
+    $result = $conn->query("SELECT id, nome, email FROM usuario"); // NÃO retornar senha aqui
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 ?>

@@ -20,23 +20,23 @@ $page = $_GET["page"] ?? "home";
 <body>
     <?php
     // Inclui o cabeçalho fixo
-    require_once "./header.php";
+    require_once "./includes/header.php";
 
     echo "<main>";
 
     // Rotas para carregar views dentro da pasta 'views'
-    require_once match ($page) {
+    require_once (match($page){
         "home" => "./views/home.php",
         "login" => "./views/login.php",
         "registrar" => "./views/cadastro.php",
         "personagens" => "./views/listaPersonagem.php",
         default => "./views/404.php",
-    };
-
+    });
+    
     echo "</main>";
 
     // Inclui o rodapé fixo
-    require_once "./footer.php";
+    require_once "./includes/footer.php";
     ?>
 </body>
 
