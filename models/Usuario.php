@@ -1,61 +1,52 @@
 <?php
-$host = '127.0.0.1';
-$port = 3307;
-$user = 'root';
-$password = '';
-$dbname = 'jogo_rpg';
 
-$conn = new mysqli($host, $user, $password, $dbname, $port);
+class Usuario
+{
+    private ?int $id;
+    private string $nome;
+    private string $email;
+    private ?string $senha; // Senha pode ser null se o usuário vier do banco de dados
 
-if ($conn->connect_error) {
-    die("Erro: " . $conn->connect_error);
-}
-
-// Criar usuário com senha (hash)
-function criarUsuario($nome, $email, $senha) {
-    global $conn;
-    $hash = password_hash($senha, PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $nome, $email, $hash);
-    return $stmt->execute();
-}
-
-// Buscar usuário pelo email
-function buscarUsuarioPorEmail($email) {
-    global $conn;
-    $stmt = $conn->prepare("SELECT * FROM usuario WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    return $result->fetch_assoc();
-}
-
-// Atualizar usuário (nome, email, senha opcional)
-function atualizarUsuario($id, $nome, $email, $senha = null) {
-    global $conn;
-    if ($senha) {
-        $hash = password_hash($senha, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ? WHERE id = ?");
-        $stmt->bind_param("sssi", $nome, $email, $hash, $id);
-    } else {
-        $stmt = $conn->prepare("UPDATE usuario SET nome = ?, email = ? WHERE id = ?");
-        $stmt->bind_param("ssi", $nome, $email, $id);
+    public function __construct(?int $id, string $nome, string $email, ?string $senha)
+    {
+        $this->id = $id;
+        $this->nome = $nome;
+        $this->email = $email;
+        $this->senha = password_hash($senha, PASSWORD_DEFAULT);
     }
-    return $stmt->execute();
-}
 
-// Deletar usuário
-function deletarUsuario($id) {
-    global $conn;
-    $stmt = $conn->prepare("DELETE FROM usuario WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    return $stmt->execute();
-}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-// Listar todos usuários
-function listarUsuarios() {
-    global $conn;
-    $result = $conn->query("SELECT id, nome, email FROM usuario"); // NÃO retornar senha aqui
-    return $result->fetch_all(MYSQLI_ASSOC);
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
+
+    public function setNome(string $nome): void
+    {
+        $this->nome = $nome;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getSenha(): string
+    {
+        return $this->senha;
+    }
+
+    public function setSenha(string $senha): void
+    {
+        $this->senha = password_hash($senha, PASSWORD_DEFAULT);
+    }
 }
-?>

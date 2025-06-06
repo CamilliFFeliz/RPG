@@ -1,45 +1,68 @@
 <?php
-$host = '127.0.0.1';
-$port = 3307;
-$user = 'root';
-$password = '';
-$dbname = 'jogo_rpg';
+require_once 'personagemDAO.php';
 
-$conn = new mysqli($host, $user, $password, $dbname, $port);
+class Personagem
+{
+    private ?int $id;
+    private string $nome;
+    private string $classe;
+    private int $nivel;
+    private int $usuarioId;
 
-if ($conn->connect_error) {
-    die("Erro: " . $conn->connect_error);
-}
+    public function __construct($id, $nome, $classe, $nivel, $usuarioId)
+    {
+        $this->id = $id;
+        $this->nome = $nome;
+        $this->classe = $classe;
+        $this->nivel = $nivel;
+        $this->usuarioId = $usuarioId;
+    }
 
-// Criar personagem vinculado a um usuário
-function criarPersonagem($nome, $classe, $nivel, $usuario_id) {
-    global $conn;
-    $stmt = $conn->prepare("INSERT INTO personagens (nome, classe, nivel, usuario_id) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssii", $nome, $classe, $nivel, $usuario_id);
-    return $stmt->execute();
-}
 
-// Listar personagens
-function listarPersonagens() {
-    global $conn;
-    $result = $conn->query("SELECT p.*, u.nome as nome_usuario FROM personagens p 
-                            JOIN usuarios u ON p.usuario_id = u.id");
-    return $result->fetch_all(MYSQLI_ASSOC);
-}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-// Atualizar personagem
-function atualizarPersonagem($id, $nome, $classe, $nivel, $usuario_id) {
-    global $conn;
-    $stmt = $conn->prepare("UPDATE personagens SET nome = ?, classe = ?, nivel = ?, usuario_id = ? WHERE id = ?");
-    $stmt->bind_param("ssiii", $nome, $classe, $nivel, $usuario_id, $id);
-    return $stmt->execute();
-}
+    public function getNome()
+    {
+        return $this->nome;
+    }
 
-// Deletar personagem
-function deletarPersonagem($id) {
-    global $conn;
-    $stmt = $conn->prepare("DELETE FROM personagens WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    return $stmt->execute();
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+    }
+
+    public function getClasse()
+    {
+        return $this->classe;
+    }
+
+    public function setClasse($classe)
+    {
+        $this->classe = $classe;
+    }
+
+    public function getNivel()
+    {
+        return $this->nivel;
+    }
+
+    public function setNivel($nivel)
+    {
+        $this->nivel = $nivel;
+    }
+
+    public function getUsuarioId()
+    {
+        return $this->usuarioId;
+    }
+
+    public function setUsuarioId($usuarioId)
+    {
+        $this->usuarioId = $usuarioId;
+    }
+
 }
 ?>
