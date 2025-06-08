@@ -1,5 +1,7 @@
 <?php
 namespace App\Views;
+
+use App\Dal\UsuarioDAO;
 session_start();
 require_once "./helpers/autoload.php";
 
@@ -19,14 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $usuario = UsuarioDao::buscarUsuarioPorEmail($email);
+        $usuario = UsuarioDAO::buscarUsuarioPorEmail($email);
 
-        if ($usuario && password_verify($senha, $usuario['senha'])) {
+        // Agora acessa a senha com o método getSenha()
+        if ($usuario && password_verify($senha, $usuario->getSenha())) {
             // Login successful
             $_SESSION['usuario'] = [
-                'id' => $usuario['id'],
-                'nome' => $usuario['nome'],
-                'email' => $usuario['email']
+                'id' => $usuario->getId(),
+                'nome' => $usuario->getNome(),
+                'email' => $usuario->getEmail()
             ];
 
             if (isset($_SESSION['success'])) {

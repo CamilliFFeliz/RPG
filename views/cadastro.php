@@ -5,13 +5,14 @@ use App\Controllers\UsuarioController;
 
 session_start();
 
+$errors = [];
+$created = false;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($_POST['nome'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $senha = $_POST['senha'] ?? '';
     $senha_confirm = $_POST['senha_confirm'] ?? '';
-
-    $errors = [];
 
     if (empty($nome)) {
         $errors[] = "O nome é obrigatório.";
@@ -27,7 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        UsuarioController::criar();
+        $dados = [
+            'nome' => $nome,
+            'email' => $email,
+            'senha' => $senha,
+        ];
+        $created = UsuarioController::criar($dados);
+
         if ($created) {
             $_SESSION['success'] = "Usuário cadastrado com sucesso! Faça login.";
             header("Location: ?page=login");

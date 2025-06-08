@@ -16,7 +16,7 @@ abstract class UsuarioDAO
         try {
             $conn = Conn::getConn();
             $stmt = $conn->prepare(
-                "INSERT INTO usuarios (nome, email, senha) 
+                "INSERT INTO usuario (nome, email, senha) 
                 VALUES (?, ?, ?);
                 "
             );
@@ -41,7 +41,7 @@ abstract class UsuarioDAO
             $conn = Conn::getConn();
             $stmt = $conn->query(
                 "SELECT id, nome, email
-                FROM usuarios;
+                FROM usuario;
                 "
             );
 
@@ -54,14 +54,14 @@ abstract class UsuarioDAO
         return $dados;
     }
 
-    public static function buscarPorId($id): Usuario
+    public static function buscarPorId($id): ?Usuario
     {
 
         try {
             $conn = Conn::getConn();
             $stmt = $conn->prepare(
                 "SELECT id, nome, email
-                FROM usuarios
+                FROM usuario
                 WHERE id = ?;
                 "
             );
@@ -79,29 +79,27 @@ abstract class UsuarioDAO
         }
     }
         public static function buscarUsuarioPorEmail($email): Usuario|null
-    {
+        {
+            try {
+                $conn = Conn::getConn();
+                $stmt = $conn->prepare(
+                    "SELECT id, nome, email, senha
+                    FROM usuario
+                    WHERE email = ?;"
+                );
 
-        try {
-            $conn = Conn::getConn();
-            $stmt = $conn->prepare(
-                "SELECT id, nome, email
-                FROM usuarios
-                WHERE email = ?;
-                "
-            );
+                $stmt->execute(array($email));
+                $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                throw new Exception("\n-- Erro ao buscar usuario por Email: \n" . $e->getMessage());
+            }
 
-            $stmt->execute(array($email));
-            $dados = $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            throw new Exception("\n-- Erro ao buscar usuario por Email: \n" . $e->getMessage());
+            if ($dados) {
+                return new Usuario($dados['id'], $dados['nome'], $dados['email'], $dados['senha']);
+            } else {
+                return null;
+            }
         }
-
-        if ($dados) {
-            return new Usuario($dados['id'], $dados['nome'], $dados['email'], null);
-        } else {
-            return null;
-        }
-    }
 
     public static function editar(Usuario $usuario)
     {

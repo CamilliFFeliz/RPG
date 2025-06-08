@@ -22,5 +22,7 @@ try {
         <?php endforeach; ?>
     </ul>
 <?php else: ?>
-    <p>Nenhum personagem cadastrado.</p>
+    <div class="container">
+        Nenhum personagem cadastrado.
+    </div>
 <?php endif; ?>

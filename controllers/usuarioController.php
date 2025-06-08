@@ -7,53 +7,43 @@ require_once "./helpers/autoload.php";
 
 $acao = $_GET['acao'] ?? '';
 
+class UsuarioController
+{
+    public static function listar()
+    {
+        return UsuarioDAO::listar();
+    }
 
-switch ($acao) {
-    case 'listar':
-        $usuarios = UsuarioDAO::listar();
-        break;
-
-    case 'criar':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nome = $_POST['nome'] ?? '';
-            $email = $_POST['email'] ?? '';
-            $senha = $_POST['senha'] ?? '';
-            if (UsuarioDAO::criar($nome, $email, $senha)) {
-                header('Location: ?page=usuarios&acao=listar');
-                exit;
-            } else {
-                $erro = "Erro ao criar usuário.";
-            }
+    public static function criar(array $dados)
+    {
+        $usuario = new Usuario(null, $dados['nome'], $dados['email'], $dados['senha']);
+        try {
+            UsuarioDAO::criar($usuario);
+            return true;
+        } catch (\Exception $e) {
+            return false;
         }
-        break;
+    }
 
-    case 'atualizar':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'] ?? 0;
-            $nome = $_POST['nome'] ?? '';
-            $email = $_POST['email'] ?? '';
-            $senha = $_POST['senha'] ?? null; 
-            if (UsuarioDAO::editar($id, $nome, $email, $senha)) {
-                header('Location: ?page=usuarios&acao=listar');
-                exit;
-            } else {
-                $erro = "Erro ao atualizar usuário.";
-            }
+    public static function editar(array $dados)
+    {
+        $usuario = new Usuario($dados['id'], $dados['nome'], $dados['email'], $dados['senha'] ?? null);
+        try {
+            UsuarioDAO::editar($usuario);
+            return true;
+        } catch (\Exception $e) {
+            return false;
         }
-        break;
+    }
 
-    case 'deletar':
-        $id = $_GET['id'] ?? 0;
-        if ($id && UsuarioDAO::excluir($id)) {
-            header('Location: ?page=usuarios&acao=listar');
-            exit;
-        } else {
-            $erro = "Erro ao deletar usuário.";
+    public static function excluir(int $id)
+    {
+        try {
+            UsuarioDAO::excluir($id);
+            return true;
+        } catch (\Exception $e) {
+            return false;
         }
-        break;
-
-    default:
-        $usuarios = UsuarioDAO::listar();
-        break;
+    }
 }
 ?>
