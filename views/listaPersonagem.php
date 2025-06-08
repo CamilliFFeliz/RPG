@@ -26,3 +26,7 @@ try {
         Nenhum personagem cadastrado.
     </div>
 <?php endif; ?>
+
+    <button type="button" onclick="location.href='?page=criarperso'">
+        Criar Personagem
+    </button>

@@ -1,12 +1,9 @@
-<?php
-require_once 'controller/PersonagemController.php';
-?>
-
+<!-- apenas o form, sem require do controller -->
 <h2>Criar Novo Personagem</h2>
 
 <form method="POST" action="controller/PersonagemController.php">
     <input type="hidden" name="acao" value="criar">
-    
+
     <label for="nome">Nome do personagem:</label>
     <input type="text" name="nome" required><br>
 

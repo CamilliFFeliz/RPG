@@ -30,6 +30,7 @@ $page = $_GET["page"] ?? "home";
         "login" => "./views/login.php",
         "registrar" => "./views/cadastro.php",
         "personagens" => "./views/listaPersonagem.php",
+        "criarperso" => "./views/personagemForm.php",
         default => "./views/404.php",
     });
     
