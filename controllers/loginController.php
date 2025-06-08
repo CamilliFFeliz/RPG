@@ -1,5 +1,7 @@
 <?php
-require_once './Usuario.php';
+namespace App\Controllers;
+require_once "./helpers/autoload.php";
+
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,21 +1,19 @@
 <?php
-require_once '../dal/UsuarioDAO.php';
-require_once '../models/Usuario.php';
+namespace App\Controllers;
 
-class UsuarioController
+use App\Dal\UsuarioDAO;
+use App\Models\Usuario;
+require_once "./helpers/autoload.php";
+
+abstract class UsuarioController
 {
-    public function listar()
+    public static function listar()
     {
         $usuarios = UsuarioDAO::listar();
         require_once '../views/usuarios/listar.php';
     }
 
-    public function criar()
-    {
-        require_once '../views/usuarios/formulario.php';
-    }
-
-    public function salvar()
+    public static function criar()
     {
         $usuario = new Usuario(
             null,
@@ -25,13 +23,11 @@ class UsuarioController
         );
         UsuarioDAO::criar($usuario);
         header('Location: /RPG/login');
-        exit();
     }
 
-    public function deletar($id)
+    public static function deletar($id)
     {
-        UsuarioDAO::deletar($id);
+        UsuarioDAO::excluir($id);
         header('Location: /RPG/usuarios/listar');
-        exit();
     }
 }

@@ -1,8 +1,9 @@
 <?php
-// cadastro.php
+namespace App\Views;
+require_once "./helpers/autoload.php";
+use App\Controllers\UsuarioController;
 
 session_start();
-require_once __DIR__ . '/../models/Usuario.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($_POST['nome'] ?? '');
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $created = criarUsuario($nome, $email, $senha);
+        UsuarioController::criar();
         if ($created) {
             $_SESSION['success'] = "Usuário cadastrado com sucesso! Faça login.";
             header("Location: ?page=login");
@@ -44,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if (!empty($errors)): ?>
         <div class="errors">
             <ul>
-                <?php foreach($errors as $error): ?>
-                <li><?= htmlspecialchars($error) ?></li>
+                <?php foreach ($errors as $error): ?>
+                    <li><?= htmlspecialchars($error) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>

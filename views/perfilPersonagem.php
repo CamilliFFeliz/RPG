@@ -1,4 +1,7 @@
 <?php
+namespace App\Views;
+
+
 $nome_personagem = "Teste";
 $nivel_personagem = 1;
 $classe_personagem = "Guerreiro";

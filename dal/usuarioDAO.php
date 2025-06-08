@@ -1,4 +1,12 @@
 <?php
+namespace App\Dal;
+
+use App\Models\Usuario;
+use Exception;
+use PDO;
+use PDOException;
+
+require_once "./helpers/autoload.php";
 
 abstract class UsuarioDAO
 {
@@ -46,7 +54,7 @@ abstract class UsuarioDAO
         return $dados;
     }
 
-    public static function buscarPorId($id): Usuario|null
+    public static function buscarPorId($id): Usuario
     {
 
         try {

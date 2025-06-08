@@ -1,4 +1,5 @@
 <?php
+namespace App\Dal;
 
 use PDO;
 use PDOException;
@@ -17,8 +18,7 @@ abstract class Conn
         if (self::$conn === null) {
             try {
                 self::$conn = new PDO(
-                    "mysql:host=" . self::$host .
-                    ";dbname=" . self::$dbName,
+                    "mysql:host=" . self::$host . ";port=" . self::$port . ";dbname=" . self::$dbName,
                     self::$user,
                     self::$password,
 
