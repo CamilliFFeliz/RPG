@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $usuario = buscarUsuarioPorEmail($email);
+        $usuario = UsuarioDao::buscarUsuarioPorEmail($email);
 
         if ($usuario && password_verify($senha, $usuario['senha'])) {
             // Login successful

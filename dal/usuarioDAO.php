@@ -78,6 +78,30 @@ abstract class UsuarioDAO
             return null;
         }
     }
+        public static function buscarUsuarioPorEmail($email): Usuario|null
+    {
+
+        try {
+            $conn = Conn::getConn();
+            $stmt = $conn->prepare(
+                "SELECT id, nome, email
+                FROM usuarios
+                WHERE email = ?;
+                "
+            );
+
+            $stmt->execute(array($email));
+            $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("\n-- Erro ao buscar usuario por Email: \n" . $e->getMessage());
+        }
+
+        if ($dados) {
+            return new Usuario($dados['id'], $dados['nome'], $dados['email'], null);
+        } else {
+            return null;
+        }
+    }
 
     public static function editar(Usuario $usuario)
     {

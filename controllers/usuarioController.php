@@ -5,29 +5,55 @@ use App\Dal\UsuarioDAO;
 use App\Models\Usuario;
 require_once "./helpers/autoload.php";
 
-abstract class UsuarioController
-{
-    public static function listar()
-    {
+$acao = $_GET['acao'] ?? '';
+
+
+switch ($acao) {
+    case 'listar':
         $usuarios = UsuarioDAO::listar();
-        require_once '../views/usuarios/listar.php';
-    }
+        break;
 
-    public static function criar()
-    {
-        $usuario = new Usuario(
-            null,
-            $_POST['nome'],
-            $_POST['email'],
-            $_POST['senha']
-        );
-        UsuarioDAO::criar($usuario);
-        header('Location: /RPG/login');
-    }
+    case 'criar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nome = $_POST['nome'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $senha = $_POST['senha'] ?? '';
+            if (UsuarioDAO::criar($nome, $email, $senha)) {
+                header('Location: ?page=usuarios&acao=listar');
+                exit;
+            } else {
+                $erro = "Erro ao criar usuário.";
+            }
+        }
+        break;
 
-    public static function deletar($id)
-    {
-        UsuarioDAO::excluir($id);
-        header('Location: /RPG/usuarios/listar');
-    }
+    case 'atualizar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? 0;
+            $nome = $_POST['nome'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $senha = $_POST['senha'] ?? null; 
+            if (UsuarioDAO::editar($id, $nome, $email, $senha)) {
+                header('Location: ?page=usuarios&acao=listar');
+                exit;
+            } else {
+                $erro = "Erro ao atualizar usuário.";
+            }
+        }
+        break;
+
+    case 'deletar':
+        $id = $_GET['id'] ?? 0;
+        if ($id && UsuarioDAO::excluir($id)) {
+            header('Location: ?page=usuarios&acao=listar');
+            exit;
+        } else {
+            $erro = "Erro ao deletar usuário.";
+        }
+        break;
+
+    default:
+        $usuarios = UsuarioDAO::listar();
+        break;
 }
+?>

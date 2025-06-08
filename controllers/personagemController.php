@@ -59,6 +59,7 @@ abstract class PersonagemController
         }
     }
 
+
     public static function deletar(): void
     {
         $id = $_GET['id'] ?? null;
