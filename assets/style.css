@@ -116,6 +116,98 @@ li > a {
     opacity: 1;
 }
 
+/* Estilo geral do login */
+.box-login {
+    background-color: #ffffffdd;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    margin: 80px auto;
+    box-shadow: 0 4px 12px rgba(66, 3, 129, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título */
+.box-login h1 {
+    text-align: center;
+    color: #420381;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+.box-login input[type="email"],
+.box-login input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Botão */
+.box-login button[type="submit"] {
+    width: 100%;
+    background-color: #420381;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.box-login button[type="submit"]:hover {
+    background-color: #330269;
+}
+
+/* Mensagens de erro */
+.errors {
+    background-color: #ffdddd;
+    border-left: 5px solid #ff5c5c;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.errors ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #990000;
+}
+
+/* Mensagem de sucesso */
+.success {
+    background-color: #d4edda;
+    border-left: 5px solid #28a745;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #155724;
+}
+
+/* Link para registro */
+.box-login p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.box-login p a {
+    color: #420381;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.box-login p a:hover {
+    text-decoration: underline;
+}
+
 
 /* lista */
 .personagem-lista {

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $usuario = UsuarioDao::buscarUsuarioPorEmail($email);
+        $usuario = buscarUsuarioPorEmail($email);
 
         if ($usuario && password_verify($senha, $usuario['senha'])) {
             // Login successful
@@ -40,8 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-<div class="container">
+<div class="box-login">
     <h1>Login</h1>
 
     <?php if (!empty($errors)): ?>

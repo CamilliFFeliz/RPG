@@ -1,7 +1,7 @@
 <header>
     <div class="logo">
         <a href="?page=home">
-            <img src="./img/logo.png" alt="Logo do site RPG" />
+            <img src="assets/logo.png" alt="Logo do site RPG" />
         </a>
     </div>
     <nav>
