@@ -17,5 +17,11 @@ CREATE TABLE IF NOT EXISTS personagem (
     classe VARCHAR(50) NOT NULL,
     nivel INT NOT NULL DEFAULT 1,
     usuario_id INT NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE;
+    forca INT DEFAULT 0,
+    destreza INT DEFAULT 0,
+    constituicao INT DEFAULT 0,
+    inteligencia INT DEFAULT 0,
+    sagacidade INT DEFAULT 0,
+    carisma INT DEFAULT 0,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );

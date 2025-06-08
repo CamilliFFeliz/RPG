@@ -1,11 +1,13 @@
 <?php
 require_once './Usuario.php';
+require_once './dal/usuarioDAO.php';
 
 $acao = $_GET['acao'] ?? '';
 
+
 switch ($acao) {
     case 'listar':
-        $usuarios = listarUsuarios();
+        $usuarios = UsuarioDAO::listar();
         break;
 
     case 'criar':
@@ -13,7 +15,7 @@ switch ($acao) {
             $nome = $_POST['nome'] ?? '';
             $email = $_POST['email'] ?? '';
             $senha = $_POST['senha'] ?? '';
-            if (criarUsuario($nome, $email, $senha)) {
+            if (UsuarioDAO::criar($nome, $email, $senha)) {
                 header('Location: ?page=usuarios&acao=listar');
                 exit;
             } else {
@@ -27,8 +29,8 @@ switch ($acao) {
             $id = $_POST['id'] ?? 0;
             $nome = $_POST['nome'] ?? '';
             $email = $_POST['email'] ?? '';
-            $senha = $_POST['senha'] ?? null; // senha opcional para atualizar
-            if (atualizarUsuario($id, $nome, $email, $senha)) {
+            $senha = $_POST['senha'] ?? null; 
+            if (UsuarioDAO::editar($id, $nome, $email, $senha)) {
                 header('Location: ?page=usuarios&acao=listar');
                 exit;
             } else {
@@ -39,7 +41,7 @@ switch ($acao) {
 
     case 'deletar':
         $id = $_GET['id'] ?? 0;
-        if ($id && deletarUsuario($id)) {
+        if ($id && UsuarioDAO::excluir($id)) {
             header('Location: ?page=usuarios&acao=listar');
             exit;
         } else {
@@ -48,7 +50,7 @@ switch ($acao) {
         break;
 
     default:
-        $usuarios = listarUsuarios();
+        $usuarios = UsuarioDAO::listar();
         break;
 }
 ?>

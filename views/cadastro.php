@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $created = criarUsuario($nome, $email, $senha);
+        $created = criar($nome, $email, $senha);
         if ($created) {
             $_SESSION['success'] = "Usuário cadastrado com sucesso! Faça login.";
             header("Location: ?page=login");
