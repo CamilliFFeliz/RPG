@@ -5,7 +5,7 @@ class Usuario
     private ?int $id;
     private string $nome;
     private string $email;
-    private ?string $senha; // Senha pode ser null se o usuário vier do banco de dados
+    private ?string $senha; 
 
     public function __construct(?int $id, string $nome, string $email, ?string $senha)
     {

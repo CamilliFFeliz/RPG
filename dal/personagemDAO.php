@@ -108,12 +108,15 @@ abstract class PersonagemDAO
                 WHERE id = ?;
                 "
             );
-        }
 
-        $stmt->execute(array($id));
-        $dados = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$dados) {
-            throw new Exception("\n-- Personagem não encontrado com o ID: $id");
+            $stmt->execute(array($id));
+            $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$dados) {
+                throw new Exception("\n-- Personagem não encontrado com o ID: $id");
+            }
+
+        } catch (PDOException $e) {
+            throw new Exception("\n-- Erro ao buscar personagem por ID: \n" . $e->getMessage());
         }
 
         return new Personagem(
