@@ -1,37 +1,54 @@
 <?php
-require_once '../dal/UsuarioDAO.php';
-require_once '../models/Usuario.php';
+require_once './Usuario.php';
 
-class UsuarioController
-{
-    public function listar()
-    {
-        $usuarios = UsuarioDAO::listar();
-        require_once '../views/usuarios/listar.php';
-    }
+$acao = $_GET['acao'] ?? '';
 
-    public function criar()
-    {
-        require_once '../views/usuarios/formulario.php';
-    }
+switch ($acao) {
+    case 'listar':
+        $usuarios = listarUsuarios();
+        break;
 
-    public function salvar()
-    {
-        $usuario = new Usuario(
-            null,
-            $_POST['nome'],
-            $_POST['email'],
-            $_POST['senha']
-        );
-        UsuarioDAO::criar($usuario);
-        header('Location: /RPG/login');
-        exit();
-    }
+    case 'criar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nome = $_POST['nome'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $senha = $_POST['senha'] ?? '';
+            if (criarUsuario($nome, $email, $senha)) {
+                header('Location: ?page=usuarios&acao=listar');
+                exit;
+            } else {
+                $erro = "Erro ao criar usuário.";
+            }
+        }
+        break;
 
-    public function deletar($id)
-    {
-        UsuarioDAO::deletar($id);
-        header('Location: /RPG/usuarios/listar');
-        exit();
-    }
+    case 'atualizar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? 0;
+            $nome = $_POST['nome'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $senha = $_POST['senha'] ?? null; // senha opcional para atualizar
+            if (atualizarUsuario($id, $nome, $email, $senha)) {
+                header('Location: ?page=usuarios&acao=listar');
+                exit;
+            } else {
+                $erro = "Erro ao atualizar usuário.";
+            }
+        }
+        break;
+
+    case 'deletar':
+        $id = $_GET['id'] ?? 0;
+        if ($id && deletarUsuario($id)) {
+            header('Location: ?page=usuarios&acao=listar');
+            exit;
+        } else {
+            $erro = "Erro ao deletar usuário.";
+        }
+        break;
+
+    default:
+        $usuarios = listarUsuarios();
+        break;
 }
+?>
