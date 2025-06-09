@@ -12,8 +12,8 @@ abstract class PersonagemDAO
 
             $conn = Conn::getConn();
             $stmt = $conn->prepare(
-                "INSERT INTO personagem (nome, classe, nivel, usuario_id) 
-                VALUES (?, ?, ?, ?);
+                "INSERT INTO personagem (nome, classe, nivel, usuario_id, constituicao, forca, destreza, inteligencia, sagacidade, carisma) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
             "
             );
             $stmt->execute(array(
@@ -21,6 +21,12 @@ abstract class PersonagemDAO
                 $personagem->getClasse(),
                 $personagem->getNivel(),
                 $personagem->getUsuarioId(),
+                $personagem->getConstituicao(),
+                $personagem->getForca(),
+                $personagem->getDestreza(),
+                $personagem->getInteligencia(),
+                $personagem->getSagacidade(),
+                $personagem->getCarisma(),
             ));
         } catch (PDOException $e) {
             throw new Exception("\n-- Erro ao criar personagem: \n" . $e->getMessage());
@@ -36,7 +42,7 @@ abstract class PersonagemDAO
 
             $conn = Conn::getConn();
             $stmt = $conn->query(
-                "SELECT id, nome, classe, nivel, usuario_id 
+                "SELECT id, nome, classe, nivel, usuario_id, forca, destreza, constituicao, inteligencia, sagacidade, carisma
                 FROM personagem;
                 "
             );
@@ -55,6 +61,12 @@ abstract class PersonagemDAO
                 $value['classe'],
                 $value['nivel'],
                 $value['usuario_id'],
+                $value['forca'],
+                $value['destreza'],
+                $value['constituicao'],
+                $value['inteligencia'],
+                $value['sagacidade'],
+                $value['carisma']
             );
 
         }
@@ -68,7 +80,7 @@ abstract class PersonagemDAO
 
             $conn = Conn::getConn();
             $stmt = $conn->prepare(
-                "SELECT nome, classe, nivel, usuario_id
+                "SELECT id, nome, classe, nivel, usuario_id, forca, destreza, constituicao, inteligencia, sagacidade, carisma
                 FROM personagem
                 WHERE usuario_id = ?;
                 "
@@ -88,6 +100,12 @@ abstract class PersonagemDAO
                 $value['classe'],
                 $value['nivel'],
                 $value['usuario_id'],
+                $value['forca'],
+                $value['destreza'],
+                $value['constituicao'],
+                $value['inteligencia'],
+                $value['sagacidade'],
+                $value['carisma']
             );
 
         }
@@ -102,7 +120,7 @@ abstract class PersonagemDAO
 
             $conn = Conn::getConn();
             $stmt = $conn->prepare(
-                "SELECT nome, classe, nivel, usuario_id
+                "SELECT id, nome, classe, nivel, usuario_id, forca, destreza, constituicao, inteligencia, sagacidade, carisma
                 FROM personagem
                 WHERE id = ?;
                 "
@@ -114,17 +132,23 @@ abstract class PersonagemDAO
                 throw new Exception("\n-- Personagem não encontrado com o ID: $id");
             }
 
+            return new Personagem(
+                $dados['id'],
+                $dados['nome'],
+                $dados['classe'],
+                $dados['nivel'],
+                $dados['usuario_id'],
+                $dados['forca'],
+                $dados['destreza'],
+                $dados['constituicao'],
+                $dados['inteligencia'],
+                $dados['sagacidade'],
+                $dados['carisma']
+            );
         } catch (PDOException $e) {
             throw new Exception("\n-- Erro ao buscar personagem por ID: \n" . $e->getMessage());
         }
 
-        return new Personagem(
-            $dados['id'],
-            $dados['nome'],
-            $dados['classe'],
-            $dados['nivel'],
-            $dados['usuario_id']
-        );
     }
 
     public static function editar(Personagem $personagem)
@@ -144,6 +168,31 @@ abstract class PersonagemDAO
             $campos[] = "nivel = ?";
             $params[] = $personagem->getNivel();
         }
+        if ($personagem->getForca()) {
+            $campos[] = "forca = ?";
+            $params[] = $personagem->getForca();
+        }
+        if ($personagem->getDestreza()) {
+            $campos[] = "destreza = ?";
+            $params[] = $personagem->getDestreza();
+        }
+        if ($personagem->getConstituicao()) {
+            $campos[] = "constituicao = ?";
+            $params[] = $personagem->getConstituicao();
+        }
+        if ($personagem->getInteligencia()) {
+            $campos[] = "inteligencia = ?";
+            $params[] = $personagem->getInteligencia();
+        }
+        if ($personagem->getSagacidade()) {
+            $campos[] = "sagacidade = ?";
+            $params[] = $personagem->getSagacidade();
+        }
+        if ($personagem->getCarisma()) {
+            $campos[] = "carisma = ?";
+            $params[] = $personagem->getCarisma();
+        }
+
 
         $query = "UPDATE personagem SET " . implode(", ", $params) . " WHERE id = ?;";
 

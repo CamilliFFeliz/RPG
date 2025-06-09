@@ -1,41 +1,56 @@
-<?php 
+<?php
 namespace App\Views;
 
+use App\Controllers\PersonagemController;
+use App\Controllers\UsuarioController;
+require_once "./helpers/autoload.php";
 
-$nome_personagem = "Teste";
-$nivel_personagem = 1;
-$classe_personagem = "Guerreiro";
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $id_personagem = (int) $_GET["personagem"];
+
+    $personagem = PersonagemController::buscarPorId();
+    $usuario = UsuarioController::buscarPorId($personagem->getId());
+}
 ?>
 
 <section class="personagem-card">
     <div class="personagem-identificacao">
         <div class="nome-personagem">
-            <h4><?php echo $nome_personagem ?></h4>
+            <h4><?php echo $personagem->getNome() ?></h4>
             <p>Nome do personagem</p>
         </div>
     </div>
 
     <div class="personagem-classificacao">
         <div class="classe-personagem">
-            <h4><?php echo $classe_personagem ?></h4>
+            <h4><?php echo $personagem->getClasse() ?></h4>
             <p>Classe do personagem</p>
         </div>
         <div class="nivel-personagem">
-            <h4><?php echo $nivel_personagem ?></h4>
+            <h4><?php echo $personagem->getNivel() ?></h4>
             <p>Nível do personagem</p>
-        </div>
-        <div class="usuario-personagem">
-            <h4>Jogador Exemplo</h4>
-            <p>Nome do Jogador</p>
         </div>
     </div>
 </section>
 
 <section id="personagem-atributos">
-    <div class="atributo"><h3>Força</h3></div>
-    <div class="atributo"><h3>Destreza</h3></div>
-    <div class="atributo"><h3>Constituição</h3></div>
-    <div class="atributo"><h3>Inteligência</h3></div>
-    <div class="atributo"><h3>Sagacidade</h3></div>
-    <div class="atributo"><h3>Carisma</h3></div>
+    <div class="atributo">
+        <h3>Força: <?php echo $personagem->getForca(); ?></h3>
+    </div>
+    <div class="atributo">
+        <h3>Destreza: <?php echo $personagem->getDestreza(); ?></h3>
+    </div>
+    <div class="atributo">
+        <h3>Constituição: <?php echo $personagem->getConstituicao(); ?></h3>
+    </div>
+    <div class="atributo">
+        <h3>Inteligência: <?php echo $personagem->getInteligencia(); ?></h3>
+    </div>
+    <div class="atributo">
+        <h3>Sagacidade: <?php echo $personagem->getSagacidade(); ?></h3>
+    </div>
+    <div class="atributo">
+        <h3>Carisma: <?php echo $personagem->getCarisma(); ?></h3>
+    </div>
 </section>

@@ -47,11 +47,16 @@ abstract class UsuarioDAO
 
             $stmt->execute();
             $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $usuarios = array_map(function ($item) {
+                return new Usuario($item['id'], $item['nome'], $item['email'], null);
+            }, $dados);
+
+
+            return $usuarios;
         } catch (PDOException $e) {
             throw new Exception("\n-- Erro ao listar usuarios: \n" . $e->getMessage());
         }
 
-        return $dados;
     }
 
     public static function buscarPorId($id): ?Usuario
@@ -78,28 +83,28 @@ abstract class UsuarioDAO
             return null;
         }
     }
-        public static function buscarUsuarioPorEmail($email): Usuario|null
-        {
-            try {
-                $conn = Conn::getConn();
-                $stmt = $conn->prepare(
-                    "SELECT id, nome, email, senha
+    public static function buscarUsuarioPorEmail($email): Usuario|null
+    {
+        try {
+            $conn = Conn::getConn();
+            $stmt = $conn->prepare(
+                "SELECT id, nome, email, senha
                     FROM usuario
                     WHERE email = ?;"
-                );
+            );
 
-                $stmt->execute(array($email));
-                $dados = $stmt->fetch(PDO::FETCH_ASSOC);
-            } catch (PDOException $e) {
-                throw new Exception("\n-- Erro ao buscar usuario por Email: \n" . $e->getMessage());
-            }
-
-            if ($dados) {
-                return new Usuario($dados['id'], $dados['nome'], $dados['email'], $dados['senha']);
-            } else {
-                return null;
-            }
+            $stmt->execute(array($email));
+            $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("\n-- Erro ao buscar usuario por Email: \n" . $e->getMessage());
         }
+
+        if ($dados) {
+            return new Usuario($dados['id'], $dados['nome'], $dados['email'], $dados['senha']);
+        } else {
+            return null;
+        }
+    }
 
     public static function editar(Usuario $usuario)
     {

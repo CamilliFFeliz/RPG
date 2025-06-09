@@ -18,7 +18,15 @@ try {
 <?php if (count($personagens) > 0): ?>
     <ul>
         <?php foreach ($personagens as $personagem): ?>
-            <li><?= htmlspecialchars($personagem->getNome()) ?></li>
+            <li>
+                <?php
+                $link = "?page=perfil_personagem&personagem=" . $personagem->getId();
+                ?>
+
+                <a href=<?= $link ?>>
+                    <?= htmlspecialchars($personagem->getNome()) ?>
+                </a>
+            </li>
         <?php endforeach; ?>
     </ul>
 <?php else: ?>
@@ -27,6 +35,6 @@ try {
     </div>
 <?php endif; ?>
 
-    <button type="button" onclick="location.href='?page=criarperso'">
-        Criar Personagem
-    </button>
+<button type="button" onclick="location.href='?page=criarperso'">
+    Criar Personagem
+</button>

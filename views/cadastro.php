@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dados = [
             'nome' => $nome,
             'email' => $email,
-            'senha' => $senha,
+            'senha' => password_hash($senha, PASSWORD_DEFAULT)
         ];
         $created = UsuarioController::criar($dados);
 

@@ -1,21 +1,24 @@
-body{
+body {
     background-image: url("background.png");
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
     padding: 0;
 }
-h1{
+
+h1 {
     color: rgb(66, 41, 135);
     font-size: 25px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-left: 20px;
 }
-h2{
+
+h2 {
     margin-left: 5px;
-    text-align:center;
+    text-align: center;
     color: #000000;
 }
+
 header {
     width: 100%;
     height: 50px;
@@ -23,8 +26,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative; 
-    z-index: 10; 
+    position: relative;
+    z-index: 10;
     top: 0;
     padding: 0 20px;
     box-sizing: border-box;
@@ -33,7 +36,8 @@ header {
 nav {
     width: 100%;
 }
-nav > ul {
+
+nav>ul {
     display: flex;
     justify-content: space-between;
     list-style: none;
@@ -41,24 +45,27 @@ nav > ul {
     margin-block: 0;
     height: 100%;
 }
-nav > ul > li {
+
+nav>ul>li {
     margin: 0;
     padding: 0;
     height: 100%;
 }
-nav > ul > li a {
-    display: block; 
+
+nav>ul>li a {
+    display: block;
     color: #dfdfe2;
     text-decoration: none;
-    padding: 1rem; 
+    padding: 1rem;
     height: 100%;
 }
-nav > ul > li:hover a {
+
+nav>ul>li:hover a {
     background-color: #dfdfe2;
-    color: #420381; 
+    color: #420381;
 }
 
-li > a {
+li>a {
     color: #dfdfe2;
     text-decoration: none;
     display: inline;
@@ -66,7 +73,7 @@ li > a {
 
 /* CORPO */
 
-.conteudo{
+.conteudo {
     display: flex;
     width: 90%;
     margin: 20px auto;
@@ -75,29 +82,32 @@ li > a {
     background-color: #bcabfa7a;
     border-radius: 10px;
 }
+
 .container {
-    display: flex;               
-    flex-direction: column;      
-    align-items: center;    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     max-width: 800px;
     margin: 20px auto;
-    box-shadow: 0 4px 8px  #f0f0f015;    
+    box-shadow: 0 4px 8px #f0f0f015;
     background-color: #f0f0f0d0;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
     transition: transform 0.3s ease;
-    padding: 20px;               
+    padding: 20px;
 }
 
 
 .container:hover {
     transform: scale(1.05);
 }
+
 .container-content {
     padding: auto;
 }
+
 .card-text {
     position: absolute;
     top: 50%;
@@ -106,13 +116,13 @@ li > a {
     opacity: 0;
     transition: opacity 0.5s ease;
     text-align: center;
-    color: rgb(25, 34, 95); 
+    color: rgb(25, 34, 95);
     background: #f0f0f0bb;
-    background-size:contain;
+    background-size: contain;
     border-radius: 10px;
 }
-    
-.card:hover .card-text { 
+
+.card:hover .card-text {
     opacity: 1;
 }
 
@@ -213,35 +223,23 @@ li > a {
 
 
 /* INFORMAÇÕES */
-.descricao{
-    margin: 60px auto ;
+.descricao {
+    margin: 60px auto;
     width: 60%;
     background-color: #ffffffc0;
     border-radius: 10px;
-    overflow: hidden;            
+    overflow: hidden;
 }
-.descricao p{
-    margin: 5px auto ;
+
+.descricao p {
+    margin: 5px auto;
     width: 80%;
     color: rgb(20, 14, 50);
     font-size: medium;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-style: italic;
-    text-align:center;
+    text-align: center;
 }
-/* 
-.imagem {
-    flex: 1;
-    background-size: cover;
-    background-position: center;
-    margin: 10px;
-}
-.imagem img {
-    width: 100%; 
-    height: auto; 
-    object-fit: cover; 
-    max-height: 600px; 
-} */
 
 .personaInfo {
     width: 80%;
@@ -251,12 +249,14 @@ li > a {
     padding: 20px;
     max-width: 500px;
 }
+
 .info {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 5px;    
+    margin: 5px;
 }
+
 .info p {
     color: #5f5f5f;
     font-size: 12px;
@@ -264,8 +264,12 @@ li > a {
     margin: auto;
 }
 
-.firtsMargin{
+.firtsMargin {
     margin-top: 20px;
+}
+
+.personagem {
+    color: black;
 }
 
 
@@ -282,6 +286,6 @@ footer {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-style: italic;
     text-align: center;
-    line-height: 60px; 
-    z-index: 1000; 
+    line-height: 60px;
+    z-index: 1000;
 }
