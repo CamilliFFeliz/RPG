@@ -7,7 +7,7 @@ body {
 }
 
 h1 {
-    color: rgb(66, 41, 135);
+    color: #420381;
     font-size: 25px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-left: 20px;
@@ -15,8 +15,9 @@ h1 {
 
 h2 {
     margin-left: 5px;
+    font-size: 20px;
     text-align: center;
-    color: #000000;
+    color: #163ca5;
 }
 
 header {
@@ -145,7 +146,7 @@ li>a {
     padding: 12px 16px;
     border-radius: 8px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     color: #1d003a;
     transition: background-color 0.3s, transform 0.2s;
     cursor: pointer;
@@ -179,12 +180,12 @@ li>a {
 .personagem-card h4 {
     margin: 5px 0;
     color: #420381;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .personagem-card p {
     margin: 0;
-    font-size: 13px;
+    font-size: 15px;
     color: #333;
     font-style: italic;
 }
@@ -217,7 +218,7 @@ li>a {
 
 .atributo h3 {
     color: #420381;
-    font-size: 16px;
+    font-size: 18px;
     margin: 0;
 }
 
@@ -259,7 +260,7 @@ li>a {
 
 .info p {
     color: #5f5f5f;
-    font-size: 12px;
+    font-size: 15px;
     line-height: 1.5;
     margin: auto;
 }
@@ -270,6 +271,44 @@ li>a {
 
 .personagem {
     color: black;
+}
+
+/* botoes */
+.btn {
+  padding: 8px 16px;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color:#420381;
+  transition: background-color 0.3s, box-shadow 0.2s;
+}
+
+.btn-edit {
+  background-color: #3498db; 
+}
+
+.btn-edit:hover {
+  background-color: #2980b9;
+}
+
+.btn-edit:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
+}
+
+.btn-delete {
+  background-color: #e74c3c; 
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+}
+
+.btn-delete:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.4);
 }
 
 

@@ -11,17 +11,36 @@ abstract class PersonagemController
     public static function criar(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nome = $_POST['nome'] ?? '';
-            $classe = $_POST['classe'] ?? '';
-            $nivel = $_POST['nivel'] ?? 1;
+            $nome = $_POST['nome'];
+            $classe = $_POST['classe'];
+            $nivel = $_POST['nivel'];
+            $forca = $_POST['forca'];
+            $destreza = $_POST['destreza'];
+            $constituicao = $_POST['constituicao'];
+            $inteligencia = $_POST['inteligencia'];
+            $sagacidade = $_POST['sagacidade'];
+            $carisma = $_POST['carisma'];
+            $usuarioId = $_COOKIE['usuario_logado'];
 
-            $forca = $_POST['forca'] ?? 0;
-            $destreza = $_POST['destreza'] ?? 0;
-            $constituicao = $_POST['constituicao'] ?? 0;
-            $inteligencia = $_POST['inteligencia'] ?? 0;
-            $sagacidade = $_POST['sagacidade'] ?? 0;
-            $carisma = $_POST['carisma'] ?? 0;
-            $usuarioId = $_COOKIE['usuario_logado'] ?? 0;
+            $params = [
+                'nome' => $nome,
+                'classe' => $classe,
+                'nivel' => $nivel,
+                'forca' => $forca,
+                'destreza' => $destreza,
+                'constituicao' => $constituicao,
+                'inteligencia' => $inteligencia,
+                'sagacidade' => $sagacidade,
+                'carisma' => $carisma,
+                'usuarioId' => $usuarioId
+            ];
+
+            // Validação de nulo ou vazio
+            foreach ($params as $key => $value) {
+                if (is_null($value) || $value === '') {
+                    throw new Exception("O campo '{$key}' não pode ser nulo ou vazio.");
+                }
+            }
 
             $personagem = new Personagem(
                 null,
@@ -70,6 +89,65 @@ abstract class PersonagemController
             return PersonagemDAO::buscarPorId($id_personagem);
         } catch (Exception $e) {
             throw new Exception("Erro ao buscar personagem: " . $e->getMessage());
+        }
+    }
+
+    public static function editar(int $id_personagem)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $nome = $_POST['nome'];
+            $classe = $_POST['classe'];
+            $nivel = $_POST['nivel'];
+            $forca = $_POST['forca'];
+            $destreza = $_POST['destreza'];
+            $constituicao = $_POST['constituicao'];
+            $inteligencia = $_POST['inteligencia'];
+            $sagacidade = $_POST['sagacidade'];
+            $carisma = $_POST['carisma'];
+            $usuarioId = $_COOKIE['usuario_logado'];
+
+            $params = [
+                'nome' => $nome,
+                'classe' => $classe,
+                'nivel' => $nivel,
+                'forca' => $forca,
+                'destreza' => $destreza,
+                'constituicao' => $constituicao,
+                'inteligencia' => $inteligencia,
+                'sagacidade' => $sagacidade,
+                'carisma' => $carisma,
+                'usuarioId' => $usuarioId
+            ];
+
+            // Validação de nulo ou vazio
+            foreach ($params as $key => $value) {
+                if (is_null($value) || $value === '') {
+                    throw new Exception("O campo '{$key}' não pode ser nulo ou vazio.");
+                }
+            }
+
+            try {
+                $personagem = new Personagem(
+                    $id_personagem,
+                    $nome,
+                    $classe,
+                    (int) $nivel,
+                    (int) $usuarioId,
+                    (int) $forca,
+                    (int) $destreza,
+                    (int) $constituicao,
+                    (int) $inteligencia,
+                    (int) $sagacidade,
+                    (int) $carisma
+                );
+
+                PersonagemDAO::editar($personagem);
+                header('Location: ?page=personagens');
+                exit();
+            } catch (Exception $e) {
+                throw new Exception("Erro ao editar personagem: " . $e->getMessage());
+            }
         }
     }
 

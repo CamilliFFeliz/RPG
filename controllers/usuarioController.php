@@ -24,7 +24,7 @@ class UsuarioController
 
                 $usuario = UsuarioDAO::buscarUsuarioPorEmail($email);
 
-                if ($usuario && password_verify($senha, $usuario->getSenha())) {
+                if ($usuario && password_verify($senha, $usuario->getSenha()) && $usuario->getID()) {
 
                     setcookie('usuario_logado', $usuario->getId(), 0, '/');
                     header('Location: ?page=home');
@@ -33,6 +33,13 @@ class UsuarioController
                         session_start();
                     }
                     return true;
+                } else {
+                    if (session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
+                    $_SESSION['erro'] = 'Usuário ou senha inválidos.';
+                    header('Location: ?page=login');
+                    return false;
                 }
             } catch (\Exception $e) {
                 return false;
