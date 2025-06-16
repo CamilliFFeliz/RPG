@@ -33,9 +33,6 @@ try {
                         <?= htmlspecialchars($personagem->getNome()) ?>
                     </a>
 
-                    <button class="btn btn-edit" onclick="location.href='<?= $linkEditar ?>'">Editar</button>
-
-                    <button class="btn btn-delete" onclick="if(confirm('Tem certeza que deseja excluir este personagem?')) location.href='<?= $linkExcluir ?>'">Excluir</button>
                 </li>
             <?php endforeach; ?>
         </ul>

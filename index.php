@@ -1,4 +1,6 @@
 <?php
+namespace App;
+use App\Controllers\PersonagemController;
 // Integrantes: Alana Cristina Martens - 38225221 | Camilli Frigeri Feliz - 37280571 | 
 // Mariela Barbosa da Silva - 37953095 | Matheus Müller dos Santos - 83693500 | 
 // Vitor Manoel Rodrigues Carvalho - 38724626 | Samantha de Souza Andrade - 37284886
@@ -30,6 +32,8 @@ $page = $_GET["page"] ?? "home";
         "personagens" => "./views/listaPersonagem.php",
         "criar_personagem" => "./views/personagemForm.php",
         "perfil_personagem" => "./views/perfilPersonagem.php",
+        "editar_personagem" => "./views/editarPersonagem.php",
+        "deletar_personagem" => "./views/deletarPersonagem.php",
         default => "./views/404.php",
     });
 

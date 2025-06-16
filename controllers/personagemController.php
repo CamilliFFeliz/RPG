@@ -92,9 +92,10 @@ abstract class PersonagemController
         }
     }
 
-    public static function editar(int $id_personagem)
+    public static function editar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id_personagem = $_GET['id_personagem'];
 
             $nome = $_POST['nome'];
             $classe = $_POST['classe'];
@@ -153,7 +154,7 @@ abstract class PersonagemController
 
     public static function deletar(): void
     {
-        $id = $_GET['id'];
+        $id = $_GET['personagem'];
 
         if ($id) {
             try {

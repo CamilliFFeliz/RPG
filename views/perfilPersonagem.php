@@ -5,6 +5,10 @@ use App\Controllers\PersonagemController;
 use App\Controllers\UsuarioController;
 require_once "./helpers/autoload.php";
 
+$id = (int) $_GET["personagem"];
+
+$linkEditar = "?page=editar_personagem&personagem=$id";
+$linkExcluir = "?page=deletar_personagem&personagem=$id";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $id_personagem = (int) $_GET["personagem"];
@@ -54,3 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <h3>Carisma: <?php echo $personagem->getCarisma(); ?></h3>
     </div>
 </section>
+
+<button class="btn btn-edit" onclick="location.href='<?= $linkEditar ?>'">Editar</button>
+
+<button class="btn btn-delete"
+    onclick="if(confirm('Tem certeza que deseja excluir este personagem?')) location.href='<?= $linkExcluir ?>'">Excluir</button>

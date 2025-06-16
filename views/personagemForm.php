@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <h2>Criar Novo Personagem</h2>
 
-    <form method="POST" action="??page=criar_personagem">
+    <form method="POST" action="?page=criar_personagem">
         <input type="hidden" name="acao" value="criar">
 
         <label for="nome">Nome do personagem:</label>
