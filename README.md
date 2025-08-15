@@ -16,19 +16,6 @@ Um sistema web completo para criação e gerenciamento de fichas de personagens 
 - **Vitor Manoel Rodrigues Carvalho**
 - **Samantha de Souza Andrade**
 
-## 📋 Índice
-
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Arquitetura](#arquitetura)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação](#instalação)
-- [Configuração do Banco de Dados](#configuração-do-banco-de-dados)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Como Usar](#como-usar)
-- [API Endpoints](#api-endpoints)
-
 ## 🎯 Sobre o Projeto
 
 O **Sistema de Gerenciamento de Personagens RPG** é uma aplicação web que permite aos jogadores de RPG criar, gerenciar e acompanhar suas fichas de personagens de forma digital. O sistema oferece uma interface intuitiva para cadastrar personagens com todos os atributos clássicos de RPG, facilitando a organização durante as sessões de jogo.
