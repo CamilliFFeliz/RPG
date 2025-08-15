@@ -28,8 +28,6 @@ Um sistema web completo para criação e gerenciamento de fichas de personagens 
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Como Usar](#como-usar)
 - [API Endpoints](#api-endpoints)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
 
 ## 🎯 Sobre o Projeto
 
@@ -137,13 +135,6 @@ cd sistema-rpg
 
 - Coloque os arquivos na pasta do servidor web (htdocs, www, etc.)
 - Configure um virtual host (opcional)
-
-### 3. Configure as permissões
-
-```bash
-chmod 755 -R .
-chmod 644 *.php
-```
 
 ## 🗄 Configuração do Banco de Dados
 
@@ -294,13 +285,3 @@ O sistema usa roteamento por parâmetro GET `page`:
 - `?page=perfil_personagem&personagem=ID` - Ver personagem específico
 - `?page=editar_personagem&id=ID` - Editar personagem específico
 - `?page=deletar_personagem&id=ID` - Excluir personagem específico
-
-## 🔒 Segurança
-
-### Medidas implementadas:
-
-- **Password Hashing**: `password_hash()` e `password_verify()`
-- **Prepared Statements**: Prevenção de SQL Injection
-- **Input Sanitization**: `htmlspecialchars()` nas views
-- **Session Management**: Cookies seguros para autenticação
-- **Email Validation**: `filter_var()` com FILTER_VALIDATE_EMAIL
